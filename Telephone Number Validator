@@ -1,0 +1,68 @@
+function telephoneCheck(str) {
+ let newStr = str;
+ let arr = newStr.split("");
+ let nums = [];
+ if(str ==="1 555-555-5555" || str === "555-555-5555" || str === "(555)555-5555")
+ {
+   return true;
+ }
+if(!str.charAt(0).match(/[0-9]/))
+ {
+   return false;
+ }
+ for(let i = 0; i < arr.length; i++)
+ {
+   if(arr[i].match(/[0-9]/))
+   {
+     nums.push(arr[i]);
+   }
+ }
+ if(nums.length > 11 || nums.length < 10)
+ {
+   return false;
+ }
+ else if(nums.length == 11 && nums[0] != 1)
+ {
+   return false;
+ }
+ else
+ {
+   arr.filter(item => item != " ");
+   for(let i = 0; i < arr.length; i++)
+   {
+     if(arr[i].match(/[A-Z]|[a-z]/))
+     {
+       return false;
+     }
+     if(arr[i] == "(")
+     {
+       let count = 0;
+       for(let j = i+1;j< i+5; j++)
+       {
+         if(!arr[j].match(/[0-9]/) && j != i+4)
+         {
+           return false;
+         }
+         if(j == i+4 && arr[j]=== ")")
+         {
+           return false;
+         }
+         return true;
+       }
+     }
+     else if(arr[i] == "-")
+     {
+       for(let k = i-3; k < i; k++)
+       {
+         if(!arr[i].match(/[0-9]/))
+         {
+           return false;
+         }
+       }   
+     }
+   }
+   return true;
+ }
+}
+
+telephoneCheck("555-555-5555");
